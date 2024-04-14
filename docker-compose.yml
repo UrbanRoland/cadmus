@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: 'postgres:alpine'
+    container_name: cadmus_db
+    restart: unless-stopped
+    environment:
+      - 'POSTGRES_DB=cadmus'
+      - 'POSTGRES_PASSWORD=pass'
+      - 'POSTGRES_USER=user'
+    ports:
+      - "5432:5432"
