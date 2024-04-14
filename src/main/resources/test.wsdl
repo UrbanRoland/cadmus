@@ -1,0 +1,49 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.webservicesoap.org/camadus" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.webservicesoap.org/camadus">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://www.webservicesoap.org/camadus">
+            <xsd:element name="getBookByIdRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getBookByIdResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="book" type="tns:book"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="getBookByIdRequestMessage">
+        <wsdl:part name="parameters" element="tns:getBookByIdRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getBookByIdResponseMessage">
+        <wsdl:part name="parameters" element="tns:getBookByIdResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="BookPortType">
+        <wsdl:operation name="getBookById">
+            <wsdl:input message="tns:getBookByIdRequestMessage"/>
+            <wsdl:output message="tns:getBookByIdResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BookBinding" type="tns:BookPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getBookById">
+            <soap:operation soapAction="http://www.webservicesoap.org/camadus/getBookById"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="BookService">
+        <wsdl:port name="BookPort" binding="tns:BookBinding">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
